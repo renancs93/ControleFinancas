@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activity.activity.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -22,14 +22,33 @@
 
     <include layout="@layout/content_main" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/multipleActionsFloatingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_menu_add"
-        android:backgroundTint="@color/colorPrimary"
-        />
+        app:fab_labelsPosition="left"
+        app:fab_labelStyle="@style/menu_labels_style"
+        >
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnAddReceita_FloatActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_icon="@drawable/ic_monetization_on_black_24dp"
+                app:fab_title="Receitas"
+                app:fab_colorNormal="#17de0c"
+                />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnAddDespesa_FloatActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_icon="@drawable/ic_monetization_on_black_24dp"
+                app:fab_title="Despesas"
+                app:fab_colorNormal="#de640c"
+                />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 </android.support.design.widget.CoordinatorLayout>
