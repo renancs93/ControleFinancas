@@ -8,6 +8,14 @@
     tools:context=".activity.activity.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+    <fragment
+        android:id="@+id/fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="br.edu.ifsp.controlefinancas.activity.fragments.ContaFragment"
+        />
+
+    <!--
     <TextView
         android:id="@+id/hello_world"
         android:layout_width="wrap_content"
@@ -30,6 +38,15 @@
         >
 
         <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnNovaConta_FloatActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="#b700ff"
+            app:fab_icon="@drawable/ic_monetization_on_black_24dp"
+            app:fab_title="Nova Conta"
+            app:fab_size="mini"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnAddReceita_FloatActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,5 +64,6 @@
             app:fab_title="Despesas"
             app:fab_size="mini"/>
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
+    -->
 
 </android.support.constraint.ConstraintLayout>

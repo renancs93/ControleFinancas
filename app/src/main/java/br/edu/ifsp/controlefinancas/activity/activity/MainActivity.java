@@ -1,7 +1,6 @@
 package br.edu.ifsp.controlefinancas.activity.activity;
 
 import android.os.Bundle;
-import com.getbase.floatingactionbutton.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,10 +12,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
 import br.edu.ifsp.controlefinancas.R;
+import br.edu.ifsp.controlefinancas.activity.fragments.ContaFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+
+    private TextView txtHello;
+    private FloatingActionButton btnAddReceita, btnAddDespesa, btnNovaConta;
+    private FloatingActionsMenu groupFloatButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,23 +32,18 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final TextView txtHello = (TextView) findViewById(R.id.hello_world);
-        FloatingActionButton btnReceita = (FloatingActionButton) findViewById(R.id.btnAddReceita_FloatActionButton);
-        FloatingActionButton btnDespesa = (FloatingActionButton) findViewById(R.id.btnAddDespesa_FloatActionButton);
+        //vinculo da classe com o Layout
+        txtHello = (TextView) findViewById(R.id.hello_world);
+        btnNovaConta = (FloatingActionButton) findViewById(R.id.btnNovaConta_FloatActionButton);
+        btnAddReceita = (FloatingActionButton) findViewById(R.id.btnAddReceita_FloatActionButton);
+        btnAddDespesa = (FloatingActionButton) findViewById(R.id.btnAddDespesa_FloatActionButton);
+        groupFloatButton = findViewById(R.id.multipleActionsFloatingButton);
 
-        btnReceita.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                txtHello.setText("Receita");
-            }
-        });
-
-        btnDespesa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                txtHello.setText("Despesa");
-            }
-        });
+        //Listeners de interacoes com a view
+        btnNovaConta.setOnClickListener(this);
+        btnAddReceita.setOnClickListener(this);
+        btnAddDespesa.setOnClickListener(this);
+        groupFloatButton.setOnClickListener(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -108,5 +110,41 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()){
+            case R.id.btnAddReceita_FloatActionButton:
+                criarNovaReceita();
+                groupFloatButton.collapse();
+                break;
+            case R.id.btnAddDespesa_FloatActionButton:
+                criarNovaDespesa();
+                groupFloatButton.collapse();
+                break;
+            case R.id.btnNovaConta_FloatActionButton:
+                criarNovaConta();
+                break;
+        }
+    }
+
+    private void criarNovaConta() {
+        ContaFragment contaFragment = new ContaFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment, contaFragment)
+                .addToBackStack(null)
+                .commit();
+
+    }
+
+    private void criarNovaReceita() {
+        txtHello.setText("Receita");
+
+    }
+
+    private void criarNovaDespesa() {
+        txtHello.setText("Despesa");
     }
 }
