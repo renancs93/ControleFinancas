@@ -1,5 +1,6 @@
 package br.edu.ifsp.controlefinancas.activity.data;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -44,6 +45,25 @@ public class ContaDAO {
 
         database.close();
         return contas;
+    }
+
+    public void salvaConta(Conta c){
+
+        database=dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(SQLiteHelper.KEY_CONTA_ID, c.getDescricao());
+        values.put(SQLiteHelper.KEY_CONTA_SALDO, c.getSaldo());
+
+        //atualiza dados conta
+        if (c.getId()>0){
+
+        }
+        //cria nova conta
+        else {
+            database.insert(SQLiteHelper.DB_TABLE_CONTA, null, values);
+        }
+
+        database.close();
     }
 
 }
