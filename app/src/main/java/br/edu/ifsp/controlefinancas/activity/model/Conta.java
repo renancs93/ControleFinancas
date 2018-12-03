@@ -9,7 +9,7 @@ public class Conta {
     public Conta() {
     }
 
-    public Conta(long id, String descricao, float saldo) {
+    public Conta(long id, String descricao, double saldo) {
         this.id = id;
         this.descricao = descricao;
         this.saldo = saldo;

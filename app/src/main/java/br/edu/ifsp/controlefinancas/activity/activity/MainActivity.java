@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         adapter = new ContaAdapter(this, contaDAO.buscaTodasContas());
         recyclerView.setAdapter(adapter);
-
     }
 
     @Override

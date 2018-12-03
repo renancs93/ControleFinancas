@@ -2,11 +2,14 @@ package br.edu.ifsp.controlefinancas.activity.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -20,6 +23,7 @@ public class ContaAdapter extends RecyclerView.Adapter<ContaAdapter.ContaViewHol
 
     private static List<Conta> contas;
     private Context context;
+    private ContaDAO contaDAO;
 
     private static ItemClickListener clickListener;
 
@@ -28,38 +32,49 @@ public class ContaAdapter extends RecyclerView.Adapter<ContaAdapter.ContaViewHol
         this.contas = contas;
     }
 
-    @NonNull
     @Override
-    public ContaViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ContaViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(context).inflate(R.layout.conta_celula, viewGroup, false);
         return new ContaViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ContaViewHolder holder, int position) {
+    public void onBindViewHolder(ContaViewHolder holder, int position) {
 
         holder.descricao.setText(contas.get(position).getDescricao());
+        holder.saldo.setText(String.valueOf(contas.get(position).getSaldo()));
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return contas.size();
     }
 
 
     //Classe interna de estruturacao dos itens e interações na lista de contas.
     public class ContaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView descricao, saldo;
+        TextInputEditText descricao, saldo;
+        LinearLayout linearLayout;
+        //TextView descricao, saldo;
 
-        public ContaViewHolder(@NonNull View view) {
+        public ContaViewHolder(View view) {
             super(view);
 
-            descricao = (TextView) view.findViewById(R.id.tv_descricao_conta);
-            saldo = (TextView) view.findViewById(R.id.tv_saldo_conta);
+            descricao = (TextInputEditText) view.findViewById(R.id.tv_descricao_conta);
+            saldo = (TextInputEditText) view.findViewById(R.id.tv_saldo_conta);
 
             view.setOnClickListener(this);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "Conta Clicada", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
         }
 
         @Override

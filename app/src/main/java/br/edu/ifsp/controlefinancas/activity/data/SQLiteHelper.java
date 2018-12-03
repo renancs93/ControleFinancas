@@ -26,7 +26,6 @@ class SQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_TRANSACAO_NATUREZA = "natureza"; //natureza (1-credito/receita ou 2-Debito/despesa)
     static final String KEY_TRANSACAO_DATE = "data"; //valor da transacao
     static final String KEY_TRANSACAO_VALOR = "valor"; //valor da transacao
-//    adici0nar campo de data
 
     //Atributos (colunas) da tabela de categorias
     static final String DB_TABLE_CATEGORIAS = "categoria";

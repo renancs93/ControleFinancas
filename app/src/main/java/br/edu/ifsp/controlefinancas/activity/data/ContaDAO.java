@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.List;
 import br.edu.ifsp.controlefinancas.activity.model.Conta;
 
 public class ContaDAO {
+
+    public static final String TAG = ContaDAO.class.getSimpleName();
 
     private SQLiteDatabase database;
     private SQLiteHelper dbHelper;
@@ -51,15 +54,17 @@ public class ContaDAO {
 
         database=dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(SQLiteHelper.KEY_CONTA_ID, c.getDescricao());
+        values.put(SQLiteHelper.KEY_CONTA_DESCRICAO, c.getDescricao());
         values.put(SQLiteHelper.KEY_CONTA_SALDO, c.getSaldo());
 
         //atualiza dados conta
         if (c.getId()>0){
+            Log.d(TAG, "Conta Atualizada");
 
         }
         //cria nova conta
         else {
+            Log.d(TAG, "Nova conta criada");
             database.insert(SQLiteHelper.DB_TABLE_CONTA, null, values);
         }
 

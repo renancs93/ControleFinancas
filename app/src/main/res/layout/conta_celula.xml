@@ -17,32 +17,54 @@
         app:contentPadding="1dp">
 
         <LinearLayout
+            android:id="@+id/layout_conta_celula"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:minHeight="60dp"
             android:padding="5dp"
-            >
+            android:baselineAligned="false">
 
-            <TextView
-                android:id="@+id/tv_descricao_conta"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="20sp"
-                android:text="Descriçao"
-                android:gravity="center_vertical"
                 android:layout_weight="2"
+                >
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/tv_descricao_conta"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    android:hint="@string/txtDescricao"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:clickable="false"
+                    android:longClickable="false"
+                    android:focusableInTouchMode="false"
+                    android:theme="@style/TextInputLayoutAppearance"
                 />
+            </android.support.design.widget.TextInputLayout>
 
-            <TextView
-                android:id="@+id/tv_saldo_conta"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="20sp"
-                android:text="Valor"
-                android:gravity="center"
                 android:layout_weight="1"
-                />
+                >
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/tv_saldo_conta"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="18sp"
+                    android:hint="@string/txtSaldo"
+                    android:gravity="center"
+                    android:textStyle="italic"
+                    android:clickable="false"
+                    android:longClickable="false"
+                    android:focusableInTouchMode="false"
+                    android:theme="@style/TextInputLayoutAppearance"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
 
         </LinearLayout>
 

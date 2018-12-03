@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.button.MaterialButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -14,6 +15,8 @@ import br.edu.ifsp.controlefinancas.activity.model.Conta;
 import br.edu.ifsp.controlefinancas.activity.util.Util;
 
 public class ContaInfo extends AppCompatActivity implements View.OnClickListener {
+
+    public static final String TAG = ContaInfo.class.getSimpleName();
 
     private Conta conta;
     private ContaDAO contaDAO;
@@ -76,6 +79,7 @@ public class ContaInfo extends AppCompatActivity implements View.OnClickListener
 
         Intent result = new Intent();
         setResult(RESULT_OK, result);
+        Log.d(TAG, "Conta OK");
         finish();
     }
 
