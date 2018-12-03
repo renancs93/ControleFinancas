@@ -37,7 +37,7 @@ public class ContaDAO {
 
             conta.setId(cursor.getLong(cursor.getColumnIndex(SQLiteHelper.KEY_CONTA_ID)));
             conta.setDescricao(cursor.getString(cursor.getColumnIndex(SQLiteHelper.KEY_CONTA_DESCRICAO)));
-            conta.setSaldo(cursor.getFloat(cursor.getColumnIndex(SQLiteHelper.KEY_CONTA_SALDO)));
+            conta.setSaldo(cursor.getDouble(cursor.getColumnIndex(SQLiteHelper.KEY_CONTA_SALDO)));
 
             contas.add(conta);
         }

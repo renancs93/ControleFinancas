@@ -18,9 +18,11 @@ import br.edu.ifsp.controlefinancas.R;
 import br.edu.ifsp.controlefinancas.activity.adapter.ContaAdapter;
 import br.edu.ifsp.controlefinancas.activity.data.ContaDAO;
 import br.edu.ifsp.controlefinancas.activity.model.Conta;
+import br.edu.ifsp.controlefinancas.activity.util.Util;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
+    View view;
     private FloatingActionButton btnAddReceita, btnAddDespesa, btnNovaConta;
     private FloatingActionsMenu groupFloatButton;
 
@@ -28,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ContaDAO contaDAO ;
     private RecyclerView recyclerView;
-
     private ContaAdapter adapter;
 
     @Override
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         contaDAO = new ContaDAO(this);
 
         //vinculo da classe com o Layout
+        view = findViewById(R.id.coordinator_main_activity);
         btnNovaConta = (FloatingActionButton) findViewById(R.id.btnNovaConta_FloatActionButton);
         btnAddReceita = (FloatingActionButton) findViewById(R.id.btnAddReceita_FloatActionButton);
         btnAddDespesa = (FloatingActionButton) findViewById(R.id.btnAddDespesa_FloatActionButton);
@@ -91,7 +93,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        //super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1)
+            if (resultCode == RESULT_OK) {
+                Util.showSnackBarAlert(view, getString(R.string.txtContaAdicionada));
+                updateUI(null);
+            }
 
     }
 
@@ -110,4 +118,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void criarNovaDespesa() {
 
     }
+
+    private void updateUI(String conta)
+    {
+        contas.clear();
+
+        if (conta==null) {
+            contas.addAll(contaDAO.buscaTodasContas());
+        }
+        else {
+            //contas.addAll(contaDAO.buscaContato(nomeContato));
+        }
+
+        recyclerView.getAdapter().notifyDataSetChanged();
+    }
+
 }

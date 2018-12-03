@@ -1,5 +1,6 @@
 package br.edu.ifsp.controlefinancas.activity.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.button.MaterialButton;
 import android.support.design.widget.Snackbar;
@@ -39,6 +40,9 @@ public class ContaInfo extends AppCompatActivity implements View.OnClickListener
         //Listeners de ações com elementos
         btnSalvar.setOnClickListener(this);
 
+        contaDAO = new ContaDAO(this);
+
+
     }
 
     @Override
@@ -60,6 +64,19 @@ public class ContaInfo extends AppCompatActivity implements View.OnClickListener
 
     private void salvarConta() {
 
+        Conta conta = new Conta();
+
+        String desc = txtDescricao.getText().toString();
+        double saldo = Double.parseDouble(txtSaldo.getText().toString());
+
+        conta.setDescricao(desc);
+        conta.setSaldo(saldo);
+
+        contaDAO.salvaConta(conta);
+
+        Intent result = new Intent();
+        setResult(RESULT_OK, result);
+        finish();
     }
 
     public boolean validaCampos(){

@@ -4,7 +4,7 @@ public class Conta {
 
     private long id;
     private String descricao;
-    private float saldo;
+    private double saldo;
 
     public Conta() {
     }
@@ -31,11 +31,11 @@ public class Conta {
         this.descricao = descricao;
     }
 
-    public float getSaldo() {
+    public double getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(float saldo) {
+    public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
 

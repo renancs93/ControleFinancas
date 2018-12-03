@@ -10,5 +10,7 @@
     <string name="txtSalvar">Salvar</string>
     <string name="txtCategoria">Categoria</string>
     <string name="txtCamposNaoPreenchidos">Campo(s) não preenchido(s)</string>
+    <string name="txtContaAdicionada">Conta adicionada</string>
+
 
 </resources>
