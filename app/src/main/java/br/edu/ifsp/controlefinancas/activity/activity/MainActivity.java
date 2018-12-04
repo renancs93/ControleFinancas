@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -58,8 +59,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnAddDespesa.setOnClickListener(this);
         groupFloatButton.setOnClickListener(this);
 
-        adapter = new ContaAdapter(this, contaDAO.buscaTodasContas());
+        adapter = new ContaAdapter(this, contas);
         recyclerView.setAdapter(adapter);
+
+        setupRecyclerView();
+
+        updateUI(null);
+    }
+
+    private void setupRecyclerView() {
+
+        adapter.setClickListener(new ContaAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Toast.makeText(getApplicationContext(), "Conta Clicada: "+position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override
@@ -86,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnNovaConta_FloatActionButton:
                 criarNovaConta();
+                groupFloatButton.collapse();
                 break;
         }
     }
@@ -94,11 +111,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1)
+        if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                Util.showSnackBarAlert(view, getString(R.string.txtContaAdicionada));
                 updateUI(null);
+                Util.showSnackBarAlert(view, getString(R.string.txtContaAdicionada));
             }
+
+
+
+        }
+
+
 
     }
 
@@ -118,8 +141,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void updateUI(String conta)
-    {
+    private void updateUI(String conta){
+
         contas.clear();
 
         if (conta==null) {

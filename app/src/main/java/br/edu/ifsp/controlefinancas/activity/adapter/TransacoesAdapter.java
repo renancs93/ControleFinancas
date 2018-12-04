@@ -1,17 +1,11 @@
 package br.edu.ifsp.controlefinancas.activity.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -19,7 +13,7 @@ import br.edu.ifsp.controlefinancas.R;
 import br.edu.ifsp.controlefinancas.activity.data.ContaDAO;
 import br.edu.ifsp.controlefinancas.activity.model.Conta;
 
-public class ContaAdapter extends RecyclerView.Adapter<ContaAdapter.ContaViewHolder> {
+public class TransacoesAdapter extends RecyclerView.Adapter<TransacoesAdapter.ContaViewHolder> {
 
     private static List<Conta> contas;
     private Context context;
@@ -27,7 +21,7 @@ public class ContaAdapter extends RecyclerView.Adapter<ContaAdapter.ContaViewHol
 
     private static ItemClickListener clickListener;
 
-    public ContaAdapter(Context context, List<Conta> contas) {
+    public TransacoesAdapter(Context context, List<Conta> contas) {
         this.context = context;
         this.contas = contas;
     }

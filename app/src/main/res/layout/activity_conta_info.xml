@@ -32,7 +32,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             >
-
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/textInput_ed_saldo_conta_info"
                 android:layout_width="match_parent"
@@ -41,6 +40,7 @@
                 android:inputType="numberDecimal"
                 />
         </android.support.design.widget.TextInputLayout>
+
 
         <android.support.design.button.MaterialButton
             android:id="@+id/button_salvar_conta_info"

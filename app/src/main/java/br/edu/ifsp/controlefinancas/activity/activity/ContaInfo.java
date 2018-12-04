@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import br.com.concrete.canarinho.watcher.ValorMonetarioWatcher;
 import br.edu.ifsp.controlefinancas.R;
 import br.edu.ifsp.controlefinancas.activity.data.ContaDAO;
 import br.edu.ifsp.controlefinancas.activity.model.Conta;
@@ -38,6 +39,8 @@ public class ContaInfo extends AppCompatActivity implements View.OnClickListener
         view = findViewById(R.id.coordinator_conta_info);
         txtDescricao = findViewById(R.id.textInput_ed_descricao_conta_info);
         txtSaldo = findViewById(R.id.textInput_ed_saldo_conta_info);
+        setCampoMonetario(txtSaldo);
+
         btnSalvar = findViewById(R.id.button_salvar_conta_info);
 
         //Listeners de ações com elementos
@@ -45,7 +48,23 @@ public class ContaInfo extends AppCompatActivity implements View.OnClickListener
 
         contaDAO = new ContaDAO(this);
 
+    }
 
+    public void setCampoMonetario(EditText editText){
+        // Padrão sem símbolo de Real
+        editText.addTextChangedListener(new ValorMonetarioWatcher());
+        //editText.append("1234567890");
+
+        editText.getText().clear();
+    }
+
+    private double getCampoValorMonetario(EditText editText){
+
+        String str = editText.getText().toString();
+
+        double valor = Double.valueOf(str.replace(".", "").replace(",","."));
+
+        return valor;
     }
 
     @Override
@@ -70,7 +89,7 @@ public class ContaInfo extends AppCompatActivity implements View.OnClickListener
         Conta conta = new Conta();
 
         String desc = txtDescricao.getText().toString();
-        double saldo = Double.parseDouble(txtSaldo.getText().toString());
+        double saldo = getCampoValorMonetario(txtSaldo); //Double.parseDouble(txtSaldo.getText().toString());
 
         conta.setDescricao(desc);
         conta.setSaldo(saldo);

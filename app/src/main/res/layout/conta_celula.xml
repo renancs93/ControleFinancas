@@ -14,21 +14,80 @@
         android:layout_margin="5dp"
         app:cardCornerRadius="3dp"
         app:cardElevation="5dp"
-        app:contentPadding="1dp">
+        app:contentPadding="1dp"
+        >
 
         <LinearLayout
             android:id="@+id/layout_conta_celula"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:minHeight="60dp"
+            android:minHeight="70dp"
             android:padding="5dp"
-            android:baselineAligned="false">
+            >
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="@string/txtDescricao"
+                    android:layout_weight="1"
+                    style="@style/text_view_label_header"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_descricao_conta"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="@string/txtDescricao"
+                    android:layout_weight="2"
+                    android:gravity="left|center"
+                    style="@style/text_view_label_main"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="@string/txtSaldo"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    style="@style/text_view_label_header"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_saldo_conta"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="@string/txtSaldo"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    style="@style/text_view_label_main"
+
+                    />
+            </LinearLayout>
+
+            <!--
             <android.support.design.widget.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
+                android:theme="@style/TextInputLayoutAppearance"
+                android:focusable="false"
                 >
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/tv_descricao_conta"
@@ -38,13 +97,13 @@
                     android:hint="@string/txtDescricao"
                     android:gravity="center_vertical"
                     android:textStyle="bold"
-                    android:clickable="false"
-                    android:longClickable="false"
-                    android:focusableInTouchMode="false"
-                    android:theme="@style/TextInputLayoutAppearance"
+                    android:focusable="false"
                 />
             </android.support.design.widget.TextInputLayout>
+            -->
 
+
+            <!--
             <android.support.design.widget.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -64,7 +123,7 @@
                     android:theme="@style/TextInputLayoutAppearance"
                     />
             </android.support.design.widget.TextInputLayout>
-
+            -->
 
         </LinearLayout>
 
