@@ -13,21 +13,25 @@
         android:padding="10dp"
         >
 
+        <!--
         <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+            android:id="@+id/spinner_conta_transacao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/txtConta"
-            android:drawableLeft="@drawable/ic_account_balance_wallet"
+            android:drawableLeft="@drawable/ic_list_black_24dp"
             android:drawablePadding="10dp"
+            style="@style/Widget.AppCompat.Spinner.DropDown"
             >
         </com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner>
+        -->
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             >
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/et_descricao_transacao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/txtDescricao"
@@ -40,9 +44,9 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             >
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/et_valor_transacao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/txtValor"
@@ -52,8 +56,42 @@
                 />
         </android.support.design.widget.TextInputLayout>
 
+        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+            android:id="@+id/spinner_categoria_transacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/txtCategoria"
+            android:drawableLeft="@drawable/ic_list_black_24dp"
+            android:drawablePadding="10dp"
+            >
+        </com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner>
 
-
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/ed_date_transacao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/txtData"
+                    android:inputType="numberDecimal"
+                    android:layout_weight="3"
+                    android:enabled="false"
+                    />
+                <ImageButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_date_range"
+                    />
+            </LinearLayout>
+        </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
 

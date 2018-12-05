@@ -7,12 +7,34 @@
     <string name="txtDescricao">Descrição</string>
     <string name="txtSaldo">Saldo</string>
     <string name="txtValor">Valor</string>
+    <string name="txtData">Data</string>
     <string name="txtReceita">Receita</string>
     <string name="txtDespesa">Despesa</string>
     <string name="txtSalvar">Salvar</string>
+    <string name="txtCancelar">Cancelar</string>
     <string name="txtCategoria">Categoria</string>
     <string name="txtCamposNaoPreenchidos">Campo(s) não preenchido(s)</string>
     <string name="txtContaAdicionada">Conta adicionada</string>
 
+    <string-array name="natureza_transacao">
+        <item>Receita</item>
+        <item>Despesa</item>
+    </string-array>
+
+    <string-array name="categoria_transacao">
+        <item>Água</item>
+        <item>Alimentação</item>
+        <item>Educação</item>
+        <item>Internet</item>
+        <item>Lazer</item>
+        <item>Luz</item>
+        <item>Moradia</item>
+        <item>Saúde</item>
+        <item>Salário</item>
+        <item>Tarifas Bancárias</item>
+        <item>Telefone</item>
+        <item>Transporte</item>
+        <item>Outros</item>
+    </string-array>
 
 </resources>
