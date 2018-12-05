@@ -23,6 +23,10 @@ import br.edu.ifsp.controlefinancas.activity.util.Util;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
+    public static String TIPO_TRANSACAO = "TRANSACAO";
+    public static String TAG_RECEITA = "RECEITA";
+    public static String TAG_DESPESA = "DESPESA";
+
     View view;
     private FloatingActionButton btnAddReceita, btnAddDespesa, btnNovaConta;
     private FloatingActionsMenu groupFloatButton;
@@ -111,11 +115,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
 
+        //Code relativo a conta
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 updateUI(null);
                 Util.showSnackBarAlert(view, getString(R.string.txtContaAdicionada));
             }
+
+        }
+        //Code relativo a a transacao
+        if (requestCode == 2){
 
 
 
@@ -134,11 +143,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void criarNovaReceita() {
 
+        Intent intent = new Intent(this, TransacaoActivity.class);
+        intent.setAction(TAG_RECEITA);
+        startActivityForResult(intent, 2);
 
     }
 
     private void criarNovaDespesa() {
 
+        Intent intent = new Intent(this, TransacaoActivity.class);
+        intent.setAction(TAG_DESPESA);
+        startActivityForResult(intent, 2);
     }
 
     private void updateUI(String conta){

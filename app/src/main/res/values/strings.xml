@@ -3,8 +3,10 @@
     <string name="app_name">Controle Finanças</string>
     <string name="txtConta">Conta</string>
     <string name="txtNovaConta">Nova Conta</string>
+    <string name="txtNova">Nova</string>
     <string name="txtDescricao">Descrição</string>
     <string name="txtSaldo">Saldo</string>
+    <string name="txtValor">Valor</string>
     <string name="txtReceita">Receita</string>
     <string name="txtDespesa">Despesa</string>
     <string name="txtSalvar">Salvar</string>
