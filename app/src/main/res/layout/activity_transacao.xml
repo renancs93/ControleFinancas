@@ -20,7 +20,6 @@
             android:hint="@string/txtConta"
             android:drawableLeft="@drawable/ic_list_black_24dp"
             android:drawablePadding="10dp"
-            style="@style/Widget.AppCompat.Spinner.DropDown"
             >
         </com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner>
 

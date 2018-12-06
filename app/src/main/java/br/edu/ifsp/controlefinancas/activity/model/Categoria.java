@@ -2,17 +2,17 @@ package br.edu.ifsp.controlefinancas.activity.model;
 
 public class Categoria {
 
-    private long id;
+    private int id;
     private String descricao;
 
     public Categoria() {
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -22,5 +22,10 @@ public class Categoria {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    @Override
+    public String toString() {
+        return this.descricao;
     }
 }

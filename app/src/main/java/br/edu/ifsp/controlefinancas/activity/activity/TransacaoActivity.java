@@ -23,8 +23,10 @@ import java.util.Calendar;
 import java.util.List;
 
 import br.edu.ifsp.controlefinancas.R;
+import br.edu.ifsp.controlefinancas.activity.data.CategoriaDAO;
 import br.edu.ifsp.controlefinancas.activity.data.ContaDAO;
 import br.edu.ifsp.controlefinancas.activity.data.TransacaoDAO;
+import br.edu.ifsp.controlefinancas.activity.model.Categoria;
 import br.edu.ifsp.controlefinancas.activity.model.Conta;
 import br.edu.ifsp.controlefinancas.activity.model.Transacao;
 import br.edu.ifsp.controlefinancas.activity.util.Util;
@@ -36,12 +38,15 @@ public class TransacaoActivity extends AppCompatActivity {
 
     private TextInputEditText edDescricao, edValor, edData;
     private MaterialBetterSpinner spinnerCategoria, spinnerConta;
+    //private Spinner spinnerCategoria, spinnerConta;
     private ImageButton btnCalendario;
 
     private ContaDAO contaDAO;
+    private CategoriaDAO categoriaDAO;
     private TransacaoDAO transacaoDAO;
 
     private List<Conta> contas;
+    private List<Categoria> categorias;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +54,9 @@ public class TransacaoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_transacao);
 
         Intent intent = getIntent();
+
+        categoriaDAO = new CategoriaDAO(this);
+        contaDAO = new ContaDAO(this);
 
         if (intent != null){
 
@@ -66,9 +74,7 @@ public class TransacaoActivity extends AppCompatActivity {
 
         //Configurações do Spinner Categoria e Conta
         spinnerCategoria = (MaterialBetterSpinner) findViewById(R.id.spinner_categoria_transacao);
-        ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this, R.array.categoria_transacao, android.R.layout.simple_spinner_item);
-        spinnerCategoria.setAdapter(arrayAdapter);
-
+        setCampoCategorias();
         spinnerConta = (MaterialBetterSpinner) findViewById(R.id.spinner_conta_transacao);
         setCampoContas();
 
@@ -91,26 +97,48 @@ public class TransacaoActivity extends AppCompatActivity {
 
     }
 
+    private void setCampoCategorias() {
+
+        categorias = categoriaDAO.buscaTodasCategorias();
+
+        ArrayAdapter<Categoria> arrayAdapter = new ArrayAdapter<Categoria>(this, android.R.layout.simple_spinner_item, categorias);
+        spinnerCategoria.setAdapter(arrayAdapter);
+
+        if (categorias.size()>0 && categorias != null){
+
+//            spinnerCategoria.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                    String descCat = ((Categoria)parent.getItemAtPosition(position)).getDescricao();
+//                    int idCat = ((Categoria)parent.getItemAtPosition(position)).getId();
+//
+//                    Toast.makeText(TransacaoActivity.this , "Conta: "+descCat+"\nID: "+idCat , Toast.LENGTH_SHORT).show();
+//                }
+//            });
+
+        }
+    }
+
     public void setCampoContas(){
 
-        contaDAO = new ContaDAO(this);
         contas = contaDAO.buscaTodasContas();
 
-        if (!contas.isEmpty() && contas != null){
+        ArrayAdapter<Conta> arrayAdapter = new ArrayAdapter<Conta>(this, android.R.layout.simple_spinner_item, contas);
+        spinnerConta.setAdapter(arrayAdapter);
 
-            ArrayAdapter<Conta> arrayAdapter = new ArrayAdapter<Conta>(this, android.R.layout.simple_spinner_item, contas);
-            spinnerConta.setAdapter(arrayAdapter);
+        if (contas.size()>0 && contas != null){
 
-            spinnerConta.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                    String descConta = ((Conta)parent.getItemAtPosition(position)).getDescricao();
-                    long idConta = ((Conta)parent.getItemAtPosition(position)).getId();
-
-                    Toast.makeText(TransacaoActivity.this , "Conta: "+descConta+"\nID: "+idConta , Toast.LENGTH_SHORT).show();
-                }
-            });
+//            spinnerConta.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                    String descConta = ((Conta)parent.getItemAtPosition(position)).getDescricao();
+//                    long idConta = ((Conta)parent.getItemAtPosition(position)).getId();
+//
+//                    Toast.makeText(TransacaoActivity.this , "Conta: "+descConta+"\nID: "+idConta , Toast.LENGTH_SHORT).show();
+//                }
+//            });
 
         }
     }

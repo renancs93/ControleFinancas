@@ -61,6 +61,23 @@ class SQLiteHelper extends SQLiteOpenHelper {
             KEY_CATEGORIA_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
             KEY_CATEGORIA_DESCRICAO + " TEXT NOT NULL); ";
 
+    private static final String DB_INSERT_CATREGORIA = "INSERT INTO " + DB_TABLE_CATEGORIAS +
+            "("+KEY_CATEGORIA_DESCRICAO+")" +
+            " VALUES " +
+                "('Água'), " +
+                "('Alimentação')," +
+                "('Educação'), " +
+                "('Internet')," +
+                "('Lazer'), " +
+                "('Luz')," +
+                "('Moradia')," +
+                "('Saúde')," +
+                "('Salário')," +
+                "('Tarifas Bancárias')," +
+                "('Telefone')," +
+                "('Transporte')," +
+                "('Outros')"+
+                ";";
 
     public SQLiteHelper(Context context) {
         super(context,  DATABASE_NAME, null, DATABASE_VERSION);
@@ -76,10 +93,15 @@ class SQLiteHelper extends SQLiteOpenHelper {
 
         db.execSQL(CREATE_TABLE_TRANSACAO);
         Log.v(KEY_DB_CLASS, "Criado tabela Transacao");
+
+        //Popular tabela Categoria com dados iniciais (default)
+        db.execSQL(DB_INSERT_CATREGORIA);
+        Log.v(KEY_DB_CLASS, "Inseridas Categorias Iniciais");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
 }
