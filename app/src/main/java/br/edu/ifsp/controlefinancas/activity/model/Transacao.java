@@ -1,7 +1,5 @@
 package br.edu.ifsp.controlefinancas.activity.model;
 
-import java.util.Date;
-
 public class Transacao{
 
     private long id;
@@ -9,14 +7,14 @@ public class Transacao{
     private int id_categoria;
     private String descricao;
     private int natureza;
-    private Date data;
-    private float valor;
+    private int data;
+    private double valor;
 
     public Transacao() {
 
     }
 
-    public Transacao(long id, long id_conta, int id_categoria, String descricao, int natureza, Date data, float valor) {
+    public Transacao(long id, long id_conta, int id_categoria, String descricao, int natureza, int data, float valor) {
         this.id = id;
         this.id_conta = id_conta;
         this.id_categoria = id_categoria;
@@ -66,19 +64,19 @@ public class Transacao{
         this.natureza = natureza;
     }
 
-    public Date getData() {
+    public int getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(int data) {
         this.data = data;
     }
 
-    public float getValor() {
+    public double getValor() {
         return valor;
     }
 
-    public void setValor(float valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 }

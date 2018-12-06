@@ -5,6 +5,9 @@ import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+
+import br.com.concrete.canarinho.watcher.ValorMonetarioWatcher;
 
 public class Util {
 
@@ -30,6 +33,14 @@ public class Util {
             e.printStackTrace();
         }
 
+    }
+
+    public static void setCampoMonetario(EditText editText){
+        // Padrão sem símbolo de Real
+        editText.addTextChangedListener(new ValorMonetarioWatcher());
+        //editText.append("1234567890");
+
+        editText.getText().clear();
     }
 
 }

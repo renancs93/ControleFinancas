@@ -50,7 +50,7 @@ class SQLiteHelper extends SQLiteOpenHelper {
             +KEY_TRANSACAO_CATEGORIA_ID + " INTEGER NOT NULL, "
             +KEY_TRANSACAO_DESCRICAO + " TEXT NOT NULL, "
             +KEY_TRANSACAO_NATUREZA + " INTEGER NOT NULL, " //natureza (1-credito/receita ou 2-Debito/despesa)
-            +KEY_TRANSACAO_DATE + " INTEGER NOT NULL, "
+            +KEY_TRANSACAO_DATE + " INTEGER NOT NULL, " // (formato: yyyymmdd)
             +KEY_TRANSACAO_VALOR + " REAL NOT NULL, "
             +" FOREIGN KEY ("+KEY_TRANSACAO_ID_CONTA+") REFERENCES "+DB_TABLE_CONTA+"("+KEY_CONTA_ID+"),"
             +" FOREIGN KEY ("+KEY_TRANSACAO_CATEGORIA_ID+") REFERENCES "+DB_TABLE_CATEGORIAS+"("+KEY_CATEGORIA_ID+")"

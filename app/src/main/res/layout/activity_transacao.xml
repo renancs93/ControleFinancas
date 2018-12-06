@@ -13,7 +13,6 @@
         android:padding="10dp"
         >
 
-        <!--
         <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
             android:id="@+id/spinner_conta_transacao"
             android:layout_width="match_parent"
@@ -24,7 +23,6 @@
             style="@style/Widget.AppCompat.Spinner.DropDown"
             >
         </com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner>
-        -->
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -53,6 +51,7 @@
                 android:inputType="numberDecimal"
                 android:drawableLeft="@drawable/ic_attach_money"
                 android:drawablePadding="10dp"
+                android:layout_marginTop="10dp"
                 />
         </android.support.design.widget.TextInputLayout>
 
@@ -63,12 +62,14 @@
             android:hint="@string/txtCategoria"
             android:drawableLeft="@drawable/ic_list_black_24dp"
             android:drawablePadding="10dp"
+            android:layout_marginTop="10dp"
             >
         </com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -81,17 +82,22 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/txtData"
                     android:inputType="numberDecimal"
-                    android:layout_weight="3"
+                    android:layout_weight="4"
                     android:enabled="false"
                     />
                 <ImageButton
+                    android:id="@+id/ib_calendario_transacao"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:src="@drawable/ic_date_range"
+                    android:background="@color/colorPrimary"
                     />
             </LinearLayout>
         </android.support.design.widget.TextInputLayout>
+
+
+
 
     </LinearLayout>
 
