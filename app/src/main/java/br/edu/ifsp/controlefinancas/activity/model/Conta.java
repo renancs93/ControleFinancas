@@ -39,5 +39,8 @@ public class Conta {
         this.saldo = saldo;
     }
 
-
+    @Override
+    public String toString() {
+        return this.descricao;
+    }
 }

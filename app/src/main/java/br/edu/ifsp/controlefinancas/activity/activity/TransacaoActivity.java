@@ -1,6 +1,7 @@
 package br.edu.ifsp.controlefinancas.activity.activity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -8,9 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
@@ -27,6 +31,7 @@ import br.edu.ifsp.controlefinancas.activity.util.Util;
 
 public class TransacaoActivity extends AppCompatActivity {
 
+    Context mContext = TransacaoActivity.this;
     private String acao = "";
 
     private TextInputEditText edDescricao, edValor, edData;
@@ -84,7 +89,6 @@ public class TransacaoActivity extends AppCompatActivity {
         //configuração do campo monetário
         Util.setCampoMonetario(edValor);
 
-
     }
 
     public void setCampoContas(){
@@ -94,17 +98,19 @@ public class TransacaoActivity extends AppCompatActivity {
 
         if (!contas.isEmpty() && contas != null){
 
-            //ArrayAdapter<Conta> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
-
-            for (int i=0 ; i<contas.size() ; i++){
-
-                //arrayAdapter.add(contas.get(i));
-                arrayAdapter.add(contas.get(i).getDescricao());
-
-            }
-            //ArrayAdapter<Conta> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, contas);
+            ArrayAdapter<Conta> arrayAdapter = new ArrayAdapter<Conta>(this, android.R.layout.simple_spinner_item, contas);
             spinnerConta.setAdapter(arrayAdapter);
+
+            spinnerConta.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    String descConta = ((Conta)parent.getItemAtPosition(position)).getDescricao();
+                    long idConta = ((Conta)parent.getItemAtPosition(position)).getId();
+
+                    Toast.makeText(TransacaoActivity.this , "Conta: "+descConta+"\nID: "+idConta , Toast.LENGTH_SHORT).show();
+                }
+            });
 
         }
     }
