@@ -6,15 +6,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
@@ -31,14 +34,17 @@ import br.edu.ifsp.controlefinancas.activity.model.Conta;
 import br.edu.ifsp.controlefinancas.activity.model.Transacao;
 import br.edu.ifsp.controlefinancas.activity.util.Util;
 
+import com.rengwuxian.materialedittext.MaterialAutoCompleteTextView;
+
 public class TransacaoActivity extends AppCompatActivity {
 
     Context mContext = TransacaoActivity.this;
     private String acao = "";
+    View view;
 
     private TextInputEditText edDescricao, edValor, edData;
     private MaterialBetterSpinner spinnerCategoria, spinnerConta;
-    //private Spinner spinnerCategoria, spinnerConta;
+    //private Spinner spinnerCategoria2, spinnerConta2;
     private ImageButton btnCalendario;
 
     private ContaDAO contaDAO;
@@ -48,6 +54,11 @@ public class TransacaoActivity extends AppCompatActivity {
     private List<Conta> contas;
     private List<Categoria> categorias;
 
+    //Campos para recuperacao dos Spinners desta biblioteca externa
+    long idConta = 0;
+    int idCategoria = 0;
+    int idNatureza = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +66,11 @@ public class TransacaoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        view = findViewById(R.id.view_transacao_activity);
+
         categoriaDAO = new CategoriaDAO(this);
         contaDAO = new ContaDAO(this);
+        transacaoDAO = new TransacaoDAO(this);
 
         if (intent != null){
 
@@ -65,17 +79,19 @@ public class TransacaoActivity extends AppCompatActivity {
             //Alteracao do título da Activity com base na ação que é esperado deste layout
             if (acao.equals(MainActivity.TAG_RECEITA)) {
                 getSupportActionBar().setTitle(getString(R.string.txtNova)+" "+getString(R.string.txtReceita));
+                idNatureza = 1;
             }
             if (acao.equals(MainActivity.TAG_DESPESA)) {
                 getSupportActionBar().setTitle(getString(R.string.txtNova)+" "+getString(R.string.txtDespesa));
+                idNatureza = 2;
             }
 
         }
 
         //Configurações do Spinner Categoria e Conta
-        spinnerCategoria = (MaterialBetterSpinner) findViewById(R.id.spinner_categoria_transacao);
+        spinnerCategoria = findViewById(R.id.spinner_categoria_transacao);
         setCampoCategorias();
-        spinnerConta = (MaterialBetterSpinner) findViewById(R.id.spinner_conta_transacao);
+        spinnerConta = findViewById(R.id.spinner_conta_transacao);
         setCampoContas();
 
         //Vinculo da classe com os componentes do Layout
@@ -104,20 +120,21 @@ public class TransacaoActivity extends AppCompatActivity {
         ArrayAdapter<Categoria> arrayAdapter = new ArrayAdapter<Categoria>(this, android.R.layout.simple_spinner_item, categorias);
         spinnerCategoria.setAdapter(arrayAdapter);
 
+
         if (categorias.size()>0 && categorias != null){
 
-//            spinnerCategoria.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                    String descCat = ((Categoria)parent.getItemAtPosition(position)).getDescricao();
-//                    int idCat = ((Categoria)parent.getItemAtPosition(position)).getId();
-//
-//                    Toast.makeText(TransacaoActivity.this , "Conta: "+descCat+"\nID: "+idCat , Toast.LENGTH_SHORT).show();
-//                }
-//            });
+            spinnerCategoria.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                    String descCat = ((Categoria)parent.getItemAtPosition(position)).getDescricao();
+                    idCategoria = ((Categoria)parent.getItemAtPosition(position)).getId();
+
+                    Toast.makeText(TransacaoActivity.this , "Conta: "+descCat+"\nID: "+idCategoria , Toast.LENGTH_SHORT).show();
+                }
+            });
         }
+
     }
 
     public void setCampoContas(){
@@ -129,18 +146,18 @@ public class TransacaoActivity extends AppCompatActivity {
 
         if (contas.size()>0 && contas != null){
 
-//            spinnerConta.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                    String descConta = ((Conta)parent.getItemAtPosition(position)).getDescricao();
-//                    long idConta = ((Conta)parent.getItemAtPosition(position)).getId();
-//
-//                    Toast.makeText(TransacaoActivity.this , "Conta: "+descConta+"\nID: "+idConta , Toast.LENGTH_SHORT).show();
-//                }
-//            });
+            spinnerConta.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                    String descConta = ((Conta)parent.getItemAtPosition(position)).getDescricao();
+                    idConta = ((Conta)parent.getItemAtPosition(position)).getId();
+
+                    Toast.makeText(TransacaoActivity.this , "Conta: "+descConta+"\nID: "+idConta , Toast.LENGTH_SHORT).show();
+                }
+            });
         }
+
     }
 
     private void openCalendarDialog() {
@@ -167,9 +184,9 @@ public class TransacaoActivity extends AppCompatActivity {
     }
 
     //Recupera a informação do campo data sem o hifen
-    private int getDataFormatada(){
+    private int getDataFormatada(EditText campoData){
 
-        String txt = edData.getText().toString();
+        String txt = campoData.getText().toString();
         return Integer.valueOf(txt.replace("-", ""));
 
     }
@@ -187,11 +204,56 @@ public class TransacaoActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_transacao_salvar:
+                salvarTransacao();
+                return true;
+            case R.id.menu_transacao_cancelar:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void salvarTransacao() {
+
+        if (validaCampos()){
+            transacaoDAO.salvaTransacao(getDados());
+            //TODO - Atualizar saldo da Conta
+            //TODO - Retornar OK
+            finish();
+        }
+        else {
+            Util.showSnackBarAlert(view, getString(R.string.txtCamposNaoPreenchidos));
+        }
+
+    }
+
     private boolean validaCampos(){
+
+        //conta / descricao / valor / categoria / data
 
         boolean ok = true;
 
         if (edDescricao.getText().toString().isEmpty()){
+            ok = false;
+        }
+        if(idCategoria == 0){
+            ok = false;
+        }
+        if (idConta == 0){
+            ok = false;
+        }
+        if (edData.getText().toString().isEmpty()){
+            ok = false;
+        }
+        if (edValor.getText().toString().isEmpty() || edValor.getText().toString() == "0.00"){
+            ok = false;
+        }
+        if (idNatureza == 0){
             ok = false;
         }
 
@@ -203,10 +265,16 @@ public class TransacaoActivity extends AppCompatActivity {
         Transacao transacao = new Transacao();
 
         transacao.setDescricao(edDescricao.getText().toString());
-        transacao.setValor(Double.valueOf(edValor.getText().toString()));
-        transacao.setData(getDataFormatada());
+        transacao.setValor(Util.getCampoValorMonetario(edValor));
+        transacao.setData(getDataFormatada(edData));
+        transacao.setId_categoria(idCategoria);
+        transacao.setId_conta(idConta);
+        transacao.setNatureza(idNatureza);
 
         return transacao;
     }
+
+
+
 
 }

@@ -43,4 +43,12 @@ public class Util {
         editText.getText().clear();
     }
 
+    public static double getCampoValorMonetario(EditText editText){
+
+        String str = editText.getText().toString();
+        double valor = Double.valueOf(str.replace(".", "").replace(",","."));
+
+        return valor;
+    }
+
 }

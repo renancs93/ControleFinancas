@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerView recyclerView;
     private ContaAdapter adapter;
 
+    long idConta = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onItemClick(int position) {
                 Toast.makeText(getApplicationContext(), "Conta Clicada: "+position, Toast.LENGTH_SHORT).show();
+                abrirContaDetalhes(position);
             }
         });
 
@@ -134,6 +137,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    private void abrirContaDetalhes(int position) {
+
+        Intent intent = new Intent(this, ContaDetalhes.class);
+        //TODO - Passar qual o ID da Conta a ser aberta
+        startActivity(intent);
+
+    }
+
     private void criarNovaConta() {
 
         Intent intent = new Intent(this, ContaInfo.class);
@@ -169,5 +180,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         recyclerView.getAdapter().notifyDataSetChanged();
     }
+
 
 }

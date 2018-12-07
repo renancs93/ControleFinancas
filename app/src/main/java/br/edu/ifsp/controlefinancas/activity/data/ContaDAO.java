@@ -17,7 +17,7 @@ public class ContaDAO {
 
     private SQLiteDatabase database;
     private SQLiteHelper dbHelper;
-
+long idConta = 1;
     public ContaDAO(Context context) {
         this.dbHelper= new SQLiteHelper (context);
     }

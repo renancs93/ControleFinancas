@@ -16,6 +16,7 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 import br.edu.ifsp.controlefinancas.R;
+import br.edu.ifsp.controlefinancas.activity.activity.MainActivity;
 import br.edu.ifsp.controlefinancas.activity.data.ContaDAO;
 import br.edu.ifsp.controlefinancas.activity.model.Conta;
 
@@ -44,6 +45,8 @@ public class ContaAdapter extends RecyclerView.Adapter<ContaAdapter.ContaViewHol
         holder.descricao.setText(contas.get(position).getDescricao());
         holder.saldo.setText(String.valueOf(contas.get(position).getSaldo()));
 
+        holder.idConta = contas.get(position).getId();
+
     }
 
     @Override
@@ -61,6 +64,7 @@ public class ContaAdapter extends RecyclerView.Adapter<ContaAdapter.ContaViewHol
 
         //TextInputEditText descricao, saldo;
         TextView descricao, saldo;
+        long idConta;
 
         public ContaViewHolder(View view) {
             super(view);
@@ -70,7 +74,6 @@ public class ContaAdapter extends RecyclerView.Adapter<ContaAdapter.ContaViewHol
 
             view.setOnClickListener(this);
 
-
         }
 
         @Override
@@ -78,10 +81,15 @@ public class ContaAdapter extends RecyclerView.Adapter<ContaAdapter.ContaViewHol
             if (clickListener != null)
                 clickListener.onItemClick(getAdapterPosition());
         }
+
     }
 
     public interface ItemClickListener {
         void onItemClick(int position);
+    }
+
+    public interface ContaIdInterface{
+        void onGetContaId(long idConta);
     }
 
 }

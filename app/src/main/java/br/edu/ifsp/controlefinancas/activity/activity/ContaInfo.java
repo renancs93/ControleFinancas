@@ -58,14 +58,7 @@ public class ContaInfo extends AppCompatActivity implements View.OnClickListener
         editText.getText().clear();
     }
 
-    private double getCampoValorMonetario(EditText editText){
 
-        String str = editText.getText().toString();
-
-        double valor = Double.valueOf(str.replace(".", "").replace(",","."));
-
-        return valor;
-    }
 
     @Override
     public void onClick(View v) {
@@ -89,7 +82,7 @@ public class ContaInfo extends AppCompatActivity implements View.OnClickListener
         Conta conta = new Conta();
 
         String desc = txtDescricao.getText().toString();
-        double saldo = getCampoValorMonetario(txtSaldo); //Double.parseDouble(txtSaldo.getText().toString());
+        double saldo = Util.getCampoValorMonetario(txtSaldo); //Double.parseDouble(txtSaldo.getText().toString());
 
         conta.setDescricao(desc);
         conta.setSaldo(saldo);
