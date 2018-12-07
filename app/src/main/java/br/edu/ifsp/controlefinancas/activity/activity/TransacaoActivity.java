@@ -130,7 +130,7 @@ public class TransacaoActivity extends AppCompatActivity {
                     String descCat = ((Categoria)parent.getItemAtPosition(position)).getDescricao();
                     idCategoria = ((Categoria)parent.getItemAtPosition(position)).getId();
 
-                    Toast.makeText(TransacaoActivity.this , "Conta: "+descCat+"\nID: "+idCategoria , Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(TransacaoActivity.this , "Conta: "+descCat+"\nID: "+idCategoria , Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -153,7 +153,7 @@ public class TransacaoActivity extends AppCompatActivity {
                     String descConta = ((Conta)parent.getItemAtPosition(position)).getDescricao();
                     idConta = ((Conta)parent.getItemAtPosition(position)).getId();
 
-                    Toast.makeText(TransacaoActivity.this , "Conta: "+descConta+"\nID: "+idConta , Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(TransacaoActivity.this , "Conta: "+descConta+"\nID: "+idConta , Toast.LENGTH_SHORT).show();
                 }
             });
         }

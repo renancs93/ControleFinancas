@@ -23,6 +23,7 @@ import br.edu.ifsp.controlefinancas.activity.util.Util;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
+    public static String TAG_CONTA = "CONTA";
     public static String TIPO_TRANSACAO = "TRANSACAO";
     public static String TAG_RECEITA = "RECEITA";
     public static String TAG_DESPESA = "DESPESA";
@@ -78,10 +79,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adapter.setClickListener(new ContaAdapter.ItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(getApplicationContext(), "Conta Clicada: "+position, Toast.LENGTH_SHORT).show();
-                abrirContaDetalhes(position);
+                //Toast.makeText(getApplicationContext(), "Conta Clicada: "+position, Toast.LENGTH_SHORT).show();
+                final Conta conta = contas.get(position);
+                Intent intent = new Intent(getApplicationContext(), ContaDetalhes.class);
+                intent.putExtra(TAG_CONTA, conta);
+                startActivity(intent);
             }
         });
+
+
 
     }
 
@@ -137,14 +143,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void abrirContaDetalhes(int position) {
-
-        Intent intent = new Intent(this, ContaDetalhes.class);
-        //TODO - Passar qual o ID da Conta a ser aberta
-        startActivity(intent);
-
-    }
-
     private void criarNovaConta() {
 
         Intent intent = new Intent(this, ContaInfo.class);
@@ -176,6 +174,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else {
             //contas.addAll(contaDAO.buscaContato(nomeContato));
+        }
+
+        //esconde os botões de adicionar receita ou despesa, caso não exista nenhuma conta criada
+        if (contas.isEmpty()){
+            btnAddDespesa.setVisibility(View.GONE);
+            btnAddReceita.setVisibility(View.GONE);
+        }
+        else {
+            btnAddDespesa.setVisibility(View.VISIBLE);
+            btnAddReceita.setVisibility(View.VISIBLE);
         }
 
         recyclerView.getAdapter().notifyDataSetChanged();

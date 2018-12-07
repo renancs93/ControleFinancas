@@ -61,8 +61,6 @@ public class ContaDetalhesAdapter extends RecyclerView.Adapter<ContaDetalhesAdap
             descricao = (TextView) view.findViewById(R.id.tv_descricao_transacao);
             valor = (TextView) view.findViewById(R.id.tv_valor_transacao);
 
-
-
             view.setOnClickListener(this);
 
         }

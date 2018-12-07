@@ -17,7 +17,7 @@ public class ContaDAO {
 
     private SQLiteDatabase database;
     private SQLiteHelper dbHelper;
-long idConta = 1;
+
     public ContaDAO(Context context) {
         this.dbHelper= new SQLiteHelper (context);
     }
@@ -68,6 +68,14 @@ long idConta = 1;
             database.insert(SQLiteHelper.DB_TABLE_CONTA, null, values);
         }
 
+        database.close();
+    }
+
+    public void apagaContato(Conta c)
+    {
+        database=dbHelper.getWritableDatabase();
+        database.delete(SQLiteHelper.DB_TABLE_CONTA, SQLiteHelper.KEY_CONTA_ID + "="+ c.getId(), null);
+        Log.d(TAG, "Conta apagada");
         database.close();
     }
 

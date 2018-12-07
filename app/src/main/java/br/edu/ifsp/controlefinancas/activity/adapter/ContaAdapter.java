@@ -88,8 +88,4 @@ public class ContaAdapter extends RecyclerView.Adapter<ContaAdapter.ContaViewHol
         void onItemClick(int position);
     }
 
-    public interface ContaIdInterface{
-        void onGetContaId(long idConta);
-    }
-
 }

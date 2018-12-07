@@ -1,6 +1,10 @@
 package br.edu.ifsp.controlefinancas.activity.model;
 
-public class Conta {
+import java.io.Serializable;
+
+public class Conta implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private long id;
     private String descricao;

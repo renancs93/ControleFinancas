@@ -11,109 +11,78 @@
 
     <com.alorma.timeline.RoundTimelineView
         android:id="@+id/timeline_marker"
-        android:layout_width="?android:listPreferredItemHeight"
+        android:layout_width="45dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:timeline_indicatorSize="10dp"
+        app:timeline_indicatorSize="8dp"
         app:timeline_lineStyle="linear"
         app:timeline_type="middle"
         app:timeline_indicatorColor="@color/colorBlack"
         app:timeline_lineColor="@color/colorBlack"
         />
 
-    <!--<com.github.vipulasri.timelineview.TimelineView-->
-        <!--android:id="@+id/timeline_marker"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="match_parent"-->
-        <!--app:markerSize="15dp"-->
-        <!--app:lineSize="2dp"-->
-        <!--app:linePadding="3dp"-->
-        <!--app:line="@color/colorBlack"-->
-        <!--app:marker="@color/colorBlack"-->
-        <!--/>-->
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv_transacao_celula"
         android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        app:cardCornerRadius="5dp"
+        android:layout_height="match_parent"
+        android:minHeight="60dp"
         app:cardElevation="5dp"
-        app:contentPadding="1dp"
-        android:layout_weight="2"
+        app:cardCornerRadius="5dp"
+        android:background="@drawable/shape_celula"
+        android:layout_margin="5dp"
         >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                >
 
-        <LinearLayout
-            android:id="@+id/layout_transacao_celula"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:minHeight="70dp"
-            android:paddingLeft="10dp"
-            >
+                <LinearLayout
+                    android:id="@+id/layout_transacao_celula"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    >
+                    <TextView
+                        android:id="@+id/tv_descricao_transacao"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txtDescricao"
+                        android:textSize="20sp"
+                        android:textAlignment="center"
+                        />
 
-            <TextView
-                android:id="@+id/tv_descricao_transacao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txtDescricao"
-                android:textSize="20sp"
-                />
+                    <TextView
+                        android:id="@+id/tv_categoria_transacao"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txtCategoria"
+                        android:textSize="15sp"
+                        android:textAlignment="center"
+                        />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_valor_transacao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txtValor"
-                android:textSize="15sp"
-                />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    >
+                    <TextView
+                        android:id="@+id/tv_valor_transacao"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/txtValor"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        />
+                </LinearLayout>
 
         </LinearLayout>
-
-            <!--
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:theme="@style/TextInputLayoutAppearance"
-                android:focusable="false"
-                >
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/tv_descricao_conta"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textSize="20sp"
-                    android:hint="@string/txtDescricao"
-                    android:gravity="center_vertical"
-                    android:textStyle="bold"
-                    android:focusable="false"
-                />
-            </android.support.design.widget.TextInputLayout>
-            -->
-
-
-            <!--
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                >
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/tv_saldo_conta"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textSize="18sp"
-                    android:hint="@string/txtSaldo"
-                    android:gravity="center"
-                    android:textStyle="italic"
-                    android:clickable="false"
-                    android:longClickable="false"
-                    android:focusableInTouchMode="false"
-                    android:theme="@style/TextInputLayoutAppearance"
-                    />
-            </android.support.design.widget.TextInputLayout>
-            -->
 
     </android.support.v7.widget.CardView>
 

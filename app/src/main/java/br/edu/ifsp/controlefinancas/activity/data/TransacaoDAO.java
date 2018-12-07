@@ -71,12 +71,16 @@ public class TransacaoDAO {
 
         Cursor cursor;
 
-        String[] cols=new String[] {SQLiteHelper.KEY_TRANSACAO_ID_CONTA, SQLiteHelper.KEY_TRANSACAO_DESCRICAO, SQLiteHelper.KEY_TRANSACAO_VALOR};
-        String where=SQLiteHelper.KEY_TRANSACAO_ID_CONTA + " = ?";
-        String[] argWhere=new String[]{filtro};
+        String[] cols = new String[] {
+                SQLiteHelper.KEY_TRANSACAO_ID_CONTA,
+                SQLiteHelper.KEY_TRANSACAO_ID,
+                SQLiteHelper.KEY_TRANSACAO_DESCRICAO,
+                SQLiteHelper.KEY_TRANSACAO_VALOR
+        };
 
+        String where = SQLiteHelper.KEY_TRANSACAO_ID_CONTA + " = "+filtro;
 
-        cursor = database.query(SQLiteHelper.DB_TABLE_TRANSACOES, cols, where , argWhere,
+        cursor = database.query(SQLiteHelper.DB_TABLE_TRANSACOES, cols, where , null,
                 null, null, SQLiteHelper.KEY_TRANSACAO_DATE+" DESC");
 
         while (cursor.moveToNext())
