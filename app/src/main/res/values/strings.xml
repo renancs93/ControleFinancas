@@ -13,9 +13,14 @@
     <string name="txtSalvar">Salvar</string>
     <string name="txtCancelar">Cancelar</string>
     <string name="txtCategoria">Categoria</string>
+    <string name="txtRelatorios">Relatórios</string>
     <string name="txtCamposNaoPreenchidos">Campo(s) não preenchido(s)</string>
+    <string name="txtOcorreuErro">Ocorreu um erro ao salvar</string>
     <string name="txtContaAdicionada">Conta adicionada</string>
     <string name="txtContaRemovida">Conta removida</string>
+    <string name="txtTransacaoAdicionada">Transação adicionada</string>
+    <string name="txtTransacaoRemovida">Transação removida</string>
+    <string name="txtSemDados">Sem dados</string>
 
     <string-array name="natureza_transacao">
         <item>Receita</item>
@@ -23,19 +28,19 @@
     </string-array>
 
     <!--<string-array name="categoria_transacao">-->
-        <!--<item>Água</item>-->
-        <!--<item>Alimentação</item>-->
-        <!--<item>Educação</item>-->
-        <!--<item>Internet</item>-->
-        <!--<item>Lazer</item>-->
-        <!--<item>Luz</item>-->
-        <!--<item>Moradia</item>-->
-        <!--<item>Saúde</item>-->
-        <!--<item>Salário</item>-->
-        <!--<item>Tarifas Bancárias</item>-->
-        <!--<item>Telefone</item>-->
-        <!--<item>Transporte</item>-->
-        <!--<item>Outros</item>-->
+    <!--<item>Água</item>-->
+    <!--<item>Alimentação</item>-->
+    <!--<item>Educação</item>-->
+    <!--<item>Internet</item>-->
+    <!--<item>Lazer</item>-->
+    <!--<item>Luz</item>-->
+    <!--<item>Moradia</item>-->
+    <!--<item>Saúde</item>-->
+    <!--<item>Salário</item>-->
+    <!--<item>Tarifas Bancárias</item>-->
+    <!--<item>Telefone</item>-->
+    <!--<item>Transporte</item>-->
+    <!--<item>Outros</item>-->
     <!--</string-array>-->
 
 </resources>

@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -94,7 +96,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+        /**
+         * Swipe Right (Remove)
+         */
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallbackRight = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 return false;
@@ -102,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
+
                 if (swipeDir == ItemTouchHelper.RIGHT) {
                     Conta conta = contas.get(viewHolder.getAdapterPosition());
                     contaDAO.apagaContato(conta);
@@ -110,12 +116,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Util.showSnackBarAlert(view, getString(R.string.txtContaRemovida));
                 }
             }
-
             @Override
             public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 Bitmap icon;
                 Paint p = new Paint();
+
                 if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+
                     View itemView = viewHolder.itemView;
                     float height = (float) itemView.getBottom() - (float) itemView.getTop();
                     float width = height / 3;
@@ -133,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
         };
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallbackRight);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
     }
@@ -147,6 +154,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         super.onBackPressed();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main_activity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_main_relatorios:
+                abrirRelatorios();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void abrirRelatorios() {
+
     }
 
     @Override
@@ -181,12 +209,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         //Code relativo a a transacao
         if (requestCode == 2){
-
-
-
+            if (resultCode == RESULT_OK){
+                updateUI(null);
+                Util.showSnackBarAlert(view, getString(R.string.txtTransacaoAdicionada));
+            }
         }
-
-
 
     }
 

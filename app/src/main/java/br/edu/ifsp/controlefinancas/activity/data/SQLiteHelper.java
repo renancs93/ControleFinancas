@@ -32,6 +32,8 @@ class SQLiteHelper extends SQLiteOpenHelper {
     static final String KEY_CATEGORIA_ID = "id";
     static final String KEY_CATEGORIA_DESCRICAO = "descricao";
 
+    static final int NATUREZA_RECEITA = 1;
+    static final int NATUREZA_DESPESA = 2;
 
     //Registro da última versão do Banco de Dados (utilizado para possíveis atualizações no banco, onde deve ser incrementado)
     private static final int DATABASE_VERSION = 1;

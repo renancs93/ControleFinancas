@@ -74,14 +74,7 @@ public class ContaDetalhes extends AppCompatActivity {
     private void updateUI(long idConta){
 
         transacaos.clear();
-
-        if (transacao==null) {
-            transacaos.addAll(transacaoDAO.buscaTodasTransacoes(idConta));
-        }
-        else {
-            //Busca por transacao especifica
-        }
-
+        transacaos.addAll(transacaoDAO.buscaTodasTransacoesPorConta(idConta));
         recyclerView.getAdapter().notifyDataSetChanged();
     }
 }

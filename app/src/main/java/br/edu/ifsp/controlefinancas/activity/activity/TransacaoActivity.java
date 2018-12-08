@@ -195,12 +195,6 @@ public class TransacaoActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_transacao, menu);
-
-//        if (!getIntent().hasExtra("contas"))
-//        {
-//            MenuItem item = menu.findItem(R.id.delConta);
-//            item.setVisible(false);
-//        }
         return true;
     }
 
@@ -221,10 +215,19 @@ public class TransacaoActivity extends AppCompatActivity {
     private void salvarTransacao() {
 
         if (validaCampos()){
-            transacaoDAO.salvaTransacao(getDados());
-            //TODO - Atualizar saldo da Conta
-            //TODO - Retornar OK
-            finish();
+            Transacao transacao = getDados();
+
+            boolean res = transacaoDAO.salvaTransacao(transacao);
+
+            if (res) {
+                transacaoDAO.atualizaSaldo(transacao.getId_conta(), transacao.getValor(), transacao.getNatureza());
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+            else {
+                Util.showSnackBarAlert(view, getString(R.string.txtOcorreuErro));
+            }
         }
         else {
             Util.showSnackBarAlert(view, getString(R.string.txtCamposNaoPreenchidos));

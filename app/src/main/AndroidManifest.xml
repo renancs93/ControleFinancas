@@ -16,12 +16,14 @@
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.activity.ContaInfo"></activity>
-        <activity android:name=".activity.activity.TransacaoActivity"></activity>
-        <activity android:name=".activity.activity.ContaDetalhes"></activity>
+        <activity android:name=".activity.activity.ContaInfo" />
+        <activity android:name=".activity.activity.TransacaoActivity" />
+        <activity android:name=".activity.activity.ContaDetalhes" />
+        <activity android:name=".activity.activity.RelatoriosActivity"></activity>
     </application>
 
 </manifest>
