@@ -1,22 +1,15 @@
 package br.edu.ifsp.controlefinancas.activity.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
 import br.edu.ifsp.controlefinancas.R;
-import br.edu.ifsp.controlefinancas.activity.activity.MainActivity;
 import br.edu.ifsp.controlefinancas.activity.data.ContaDAO;
 import br.edu.ifsp.controlefinancas.activity.model.Conta;
 

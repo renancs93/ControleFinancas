@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ import br.edu.ifsp.controlefinancas.activity.data.ContaDAO;
 import br.edu.ifsp.controlefinancas.activity.data.TransacaoDAO;
 import br.edu.ifsp.controlefinancas.activity.model.Conta;
 import br.edu.ifsp.controlefinancas.activity.model.Transacao;
+import br.edu.ifsp.controlefinancas.activity.model.TransacaoInfo;
 
 public class ContaDetalhes extends AppCompatActivity {
 
@@ -26,10 +28,13 @@ public class ContaDetalhes extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ContaDetalhesAdapter adapter;
 
-    private List<Transacao> transacaos = new ArrayList<>();
+    //private List<Transacao> transacaos = new ArrayList<>();
+    private List<TransacaoInfo> transacaos = new ArrayList<>();
 
     Conta conta;
     Transacao transacao;
+
+    TextView txtSaldo;
 
     View view;
 
@@ -51,12 +56,16 @@ public class ContaDetalhes extends AppCompatActivity {
         adapter = new ContaDetalhesAdapter(this, transacaos);
         recyclerView.setAdapter(adapter);
 
+        txtSaldo = (TextView) findViewById(R.id.tv_saldo_conta_transacao);
+
         if (getIntent().hasExtra(MainActivity.TAG_CONTA)){
 
             //recuperacao da Conta pela Intent
             this.conta = (Conta) getIntent().getSerializableExtra(MainActivity.TAG_CONTA);
 
             getSupportActionBar().setTitle(getString(R.string.txtConta)+": "+conta.getDescricao());
+
+            txtSaldo.setText(getText(R.string.txtSaldo)+": "+conta.getSaldo());
 
             updateUI(conta.getId());
         }

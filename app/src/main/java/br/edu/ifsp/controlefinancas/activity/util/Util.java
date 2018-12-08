@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import java.text.SimpleDateFormat;
+
 import br.com.concrete.canarinho.watcher.ValorMonetarioWatcher;
 
 public class Util {
@@ -49,6 +51,24 @@ public class Util {
         double valor = Double.valueOf(str.replace(".", "").replace(",","."));
 
         return valor;
+    }
+
+    public static String intDateForStringDate(int date){
+
+        String ano;
+        String mes;
+        String dia;
+        String dataFormatada = "";
+
+        dataFormatada = String.valueOf(date);
+
+        ano = dataFormatada.substring(0, 4);
+        mes = dataFormatada.substring(4, 6);
+        dia = dataFormatada.substring(6, 8);
+
+        dataFormatada = dia+"/"+mes+"/"+ano;
+
+        return dataFormatada;
     }
 
 }

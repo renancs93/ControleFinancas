@@ -10,10 +10,10 @@
     >
 
     <com.alorma.timeline.RoundTimelineView
-        android:id="@+id/timeline_marker"
-        android:layout_width="45dp"
+        android:id="@+id/timeline_view"
+        android:layout_width="50dp"
         android:layout_height="match_parent"
-        app:timeline_indicatorSize="8dp"
+        app:timeline_indicatorSize="13dp"
         app:timeline_lineStyle="linear"
         app:timeline_type="middle"
         app:timeline_indicatorColor="@color/colorBlack"
@@ -43,25 +43,27 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:gravity="center"
                     >
                     <TextView
                         android:id="@+id/tv_descricao_transacao"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
                         android:text="@string/txtDescricao"
                         android:textSize="20sp"
-                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:layout_weight="2"
                         />
 
                     <TextView
                         android:id="@+id/tv_categoria_transacao"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
                         android:text="@string/txtCategoria"
                         android:textSize="15sp"
-                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:layout_weight="1"
                         />
                 </LinearLayout>
 
@@ -75,10 +77,20 @@
                     <TextView
                         android:id="@+id/tv_valor_transacao"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="0dp"
                         android:text="@string/txtValor"
                         android:textSize="20sp"
                         android:gravity="center"
+                        android:layout_weight="2"
+                        />
+                    <TextView
+                        android:id="@+id/tv_data_transacao"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:text="@string/txtData"
+                        android:textSize="15sp"
+                        android:gravity="center"
+                        android:layout_weight="1"
                         />
                 </LinearLayout>
 

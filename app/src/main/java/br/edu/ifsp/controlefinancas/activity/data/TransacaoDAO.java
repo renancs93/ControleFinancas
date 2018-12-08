@@ -15,6 +15,7 @@ import java.util.List;
 
 import br.edu.ifsp.controlefinancas.activity.model.Conta;
 import br.edu.ifsp.controlefinancas.activity.model.Transacao;
+import br.edu.ifsp.controlefinancas.activity.model.TransacaoInfo;
 
 public class TransacaoDAO {
 
@@ -62,34 +63,38 @@ public class TransacaoDAO {
     }
 
 
-    public List<Transacao> buscaTodasTransacoes(long idConta) {
+    public List<TransacaoInfo> buscaTodasTransacoes(long idConta) {
 
-        String filtro = String.valueOf(idConta);
+        String filtros[] = {String.valueOf(idConta)};
 
         database=dbHelper.getReadableDatabase();
-        List<Transacao> transacaos = new ArrayList<>();
+        List<TransacaoInfo> transacaos = new ArrayList<>();
 
         Cursor cursor;
 
-        String[] cols = new String[] {
-                SQLiteHelper.KEY_TRANSACAO_ID_CONTA,
-                SQLiteHelper.KEY_TRANSACAO_ID,
-                SQLiteHelper.KEY_TRANSACAO_DESCRICAO,
-                SQLiteHelper.KEY_TRANSACAO_VALOR
-        };
+        String sql = "SELECT DISTINCT * FROM "+SQLiteHelper.DB_TABLE_TRANSACOES+" t"+
+                " JOIN "+SQLiteHelper.DB_TABLE_CONTA+" c ON c."+SQLiteHelper.KEY_CONTA_ID+ " = t."+SQLiteHelper.KEY_TRANSACAO_ID_CONTA+
+                " JOIN "+SQLiteHelper.DB_TABLE_CATEGORIAS+" ct ON ct."+SQLiteHelper.KEY_CATEGORIA_ID+" = t."+SQLiteHelper.KEY_TRANSACAO_CATEGORIA_ID+
+                " where "+SQLiteHelper.KEY_TRANSACAO_ID_CONTA+" = ? order by t."+SQLiteHelper.KEY_TRANSACAO_DATE+" DESC";
+                ;
 
-        String where = SQLiteHelper.KEY_TRANSACAO_ID_CONTA + " = "+filtro;
+        cursor = database.rawQuery(sql, filtros);
 
-        cursor = database.query(SQLiteHelper.DB_TABLE_TRANSACOES, cols, where , null,
-                null, null, SQLiteHelper.KEY_TRANSACAO_DATE+" DESC");
+
+        cursor.moveToFirst();
 
         while (cursor.moveToNext())
         {
-            Transacao transacao = new Transacao();
+            //Transacao transacao = new Transacao();
+            TransacaoInfo transacao = new TransacaoInfo();
 
-            transacao.setId(cursor.getLong(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_ID)));
-            transacao.setDescricao(cursor.getString(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_DESCRICAO)));
+            transacao.setId_conta(cursor.getLong(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_ID_CONTA)));
+            transacao.setId_transacao(cursor.getLong(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_ID)));
             transacao.setValor(cursor.getDouble(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_VALOR)));
+            transacao.setDescricao(cursor.getString(3)/*cursor.getString(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_DESCRICAO))*/);
+            transacao.setCategoria(cursor.getString(11)/*cursor.getString(cursor.getColumnIndex(SQLiteHelper.KEY_CATEGORIA_DESCRICAO))*/);
+            transacao.setData(cursor.getInt(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_DATE)));
+            transacao.setNatureza(cursor.getInt(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_NATUREZA)));
 
             transacaos.add(transacao);
         }
@@ -100,4 +105,6 @@ public class TransacaoDAO {
         return transacaos;
 
     }
+
+
 }
