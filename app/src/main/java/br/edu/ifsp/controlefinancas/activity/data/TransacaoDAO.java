@@ -72,7 +72,7 @@ public class TransacaoDAO {
         String filtros[] = {String.valueOf(idConta)};
 
         database=dbHelper.getReadableDatabase();
-        List<TransacaoInfo> transacaos = new ArrayList<>();
+        List<TransacaoInfo> transacoes = new ArrayList<>();
 
         Cursor cursor;
 
@@ -85,25 +85,26 @@ public class TransacaoDAO {
         cursor = database.rawQuery(sql, filtros);
         cursor.moveToFirst();
 
-        do{
-            //Transacao transacao = new Transacao();
-            TransacaoInfo transacao = new TransacaoInfo();
+        if (cursor.getCount()>0) {
+            do {
+                TransacaoInfo transacao = new TransacaoInfo();
 
-            transacao.setId_conta(cursor.getLong(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_ID_CONTA)));
-            transacao.setId_transacao(cursor.getLong(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_ID)));
-            transacao.setValor(cursor.getDouble(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_VALOR)));
-            transacao.setDescricao(cursor.getString(3)/*cursor.getString(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_DESCRICAO))*/);
-            transacao.setCategoria(cursor.getString(11)/*cursor.getString(cursor.getColumnIndex(SQLiteHelper.KEY_CATEGORIA_DESCRICAO))*/);
-            transacao.setData(cursor.getInt(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_DATE)));
-            transacao.setNatureza(cursor.getInt(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_NATUREZA)));
+                transacao.setId_conta(cursor.getLong(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_ID_CONTA)));
+                transacao.setId_transacao(cursor.getLong(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_ID)));
+                transacao.setValor(cursor.getDouble(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_VALOR)));
+                transacao.setDescricao(cursor.getString(3)/*cursor.getString(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_DESCRICAO))*/);
+                transacao.setCategoria(cursor.getString(11)/*cursor.getString(cursor.getColumnIndex(SQLiteHelper.KEY_CATEGORIA_DESCRICAO))*/);
+                transacao.setData(cursor.getInt(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_DATE)));
+                transacao.setNatureza(cursor.getInt(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_NATUREZA)));
 
-            transacaos.add(transacao);
-        }while (cursor.moveToNext());
+                transacoes.add(transacao);
+            } while (cursor.moveToNext());
+        }
 
         cursor.close();
         database.close();
 
-        return transacaos;
+        return transacoes;
 
     }
 
@@ -132,14 +133,16 @@ public class TransacaoDAO {
         cursor = database.rawQuery(sql, null);
         cursor.moveToFirst();
 
-        do {
-            TransacaoInfo transacaoInfo = new TransacaoInfo();
-            transacaoInfo.setDescricao(cursor.getString(cursor.getColumnIndex(SQLiteHelper.KEY_CATEGORIA_DESCRICAO)));
-            transacaoInfo.setValor(cursor.getDouble(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_VALOR)));
+        if (cursor.getCount()>0) {
+            do {
+                TransacaoInfo transacaoInfo = new TransacaoInfo();
+                transacaoInfo.setDescricao(cursor.getString(cursor.getColumnIndex(SQLiteHelper.KEY_CATEGORIA_DESCRICAO)));
+                transacaoInfo.setValor(cursor.getDouble(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_VALOR)));
 
-            transacaoInfos.add(transacaoInfo);
+                transacaoInfos.add(transacaoInfo);
 
-        }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
+        }
 
         cursor.close();
         database.close();
