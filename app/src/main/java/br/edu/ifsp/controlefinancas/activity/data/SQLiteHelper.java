@@ -39,13 +39,13 @@ class SQLiteHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     //SQL de criação da Tabela Conta
-    private static final String CREATE_TABLE_CONTA = "CREATE TABLE "+ DB_TABLE_CONTA + " ("+
+    private static final String CREATE_TABLE_CONTA = "CREATE TABLE IF NOT EXISTS "+ DB_TABLE_CONTA + " ("+
             KEY_CONTA_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
             KEY_CONTA_DESCRICAO + " TEXT NOT NULL, "+
             KEY_CONTA_SALDO + " REAL); ";
 
     //SQL de criação da Tabela Transações
-    private static final String CREATE_TABLE_TRANSACAO = "CREATE TABLE "
+    private static final String CREATE_TABLE_TRANSACAO = "CREATE TABLE IF NOT EXISTS "
             + DB_TABLE_TRANSACOES+ " ("
             +KEY_TRANSACAO_ID  +  " INTEGER PRIMARY KEY AUTOINCREMENT, "
             +KEY_TRANSACAO_ID_CONTA + " INTEGER NOT NULL, "
@@ -86,7 +86,19 @@ class SQLiteHelper extends SQLiteOpenHelper {
     }
 
     @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+
+        if (!db.isReadOnly()){
+            // Enable foreign key constraints
+            db.execSQL("PRAGMA foreign_keys=ON;");
+        }
+
+    }
+
+    @Override
     public void onCreate(SQLiteDatabase db) {
+
         db.execSQL(CREATE_TABLE_CONTA);
         Log.v(KEY_DB_CLASS, "Criado tabela Conta");
 
@@ -103,6 +115,9 @@ class SQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+        db.execSQL("DROP TABLE IF EXISTS "+DB_TABLE_CATEGORIAS);
+        onCreate(db);
 
     }
 

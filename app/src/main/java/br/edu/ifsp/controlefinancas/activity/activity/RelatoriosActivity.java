@@ -1,18 +1,18 @@
 package br.edu.ifsp.controlefinancas.activity.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
+import com.anychart.APIlib;
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Pie;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import br.edu.ifsp.controlefinancas.R;
 import br.edu.ifsp.controlefinancas.activity.data.TransacaoDAO;
@@ -20,12 +20,12 @@ import br.edu.ifsp.controlefinancas.activity.model.TransacaoInfo;
 
 public class RelatoriosActivity extends AppCompatActivity {
 
-    PieChart pieChartCategoria;
-
-    private List<TransacaoInfo> transacoesList;
-    private List<PieEntry> entries;
-
+    private List<DataEntry> data = new ArrayList<>();
+    private List<TransacaoInfo> transacoes = new ArrayList<>();
     TransacaoDAO transacaoDAO;
+
+    Pie pie;
+    AnyChartView anyChartView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,71 +33,44 @@ public class RelatoriosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_relatorios);
 
         transacaoDAO = new TransacaoDAO(this);
-        transacoesList = new ArrayList<>();
+        anyChartView = (AnyChartView) findViewById(R.id.piechart_relatorio_categoria);
 
-        //setGraficoCategoria();
+        pie = new AnyChart().pie();
+
+        setGraficoCategoria();
+    }
+
+    private void setGraficoCategoria() {
+
+        APIlib.getInstance().setActiveAnyChartView(anyChartView);
+        pie.title(getString(R.string.txtRelatorios)+": "+getString(R.string.txtCategoria));
+
+        transacoes = transacaoDAO.buscaTransacaoPorCategoria(0);
+        data.clear();
+
+        for (TransacaoInfo t : transacoes){
+            data.add(new ValueDataEntry(t.getDescricao(), t.getValor()));
+        }
+        pie.data(data);
+
+//        if (!data.isEmpty()){
+//            pie.data(data);
+//        }
+
+        // enable aqua style
+        pie.fill("aquastyle");
+
+        pie.animation().enabled(true);
+        pie.animation().duration(1500);
+        anyChartView.setChart(pie);
+
     }
 
     private void refreshChart(){
 
-        pieChartCategoria.invalidate();
-        pieChartCategoria.notifyDataSetChanged();
+        transacoes.clear();
+        data.clear();
+
     }
-
-
-//    void setGraficoCategoria(){
-//
-//        transacoesList = transacaoDAO.buscaTodasTransacoes();
-//
-//        List<PieEntry> entries = new ArrayList<>();
-//        HashMap<String, Float> map = groupBySumCategoriaTransacao(transacoesList);
-//
-//        for (Map.Entry<String,Float> pair : map.entrySet()) {
-//            entries.add(new PieEntry(pair.getValue(), pair.getKey()));
-//        }
-//        showPieChart(entries);
-//
-//    }
-
-//    private HashMap<String, Float> groupBySumCategoriaTransacao(List<TransacaoInfo> transacoesList) {
-//
-//        HashMap<String, Float> hashMap = new HashMap<String, Float>();
-//
-//        for (TransacaoInfo t : transacoesList){
-//
-//            if (!hashMap.containsKey(t.getCategoria())){
-//                hashMap.put(t.getCategoria(), t.getValor());
-//            }
-//            else {
-//                Float val = hashMap.get(t.getCategoria());
-//                hashMap.put(t.getCategoria(), val + t.getValor());
-//            }
-//        }
-//
-//        return hashMap;
-//
-//    }
-
-//    private void showPieChart(List<PieEntry> list){
-//
-//        PieDataSet dataSet = new PieDataSet(list, "");
-//        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-//
-//        PieData data = new PieData(dataSet);
-//
-//        if (list.isEmpty()){
-//            pieChartCategoria.setCenterText(getString(R.string.txtSemDados));
-//        }
-//        else {
-//            pieChartCategoria.setCenterText(getString(R.string.txtCategoria));
-//        }
-//
-//        //pieChart.setContentDescription(nameWallet);
-//        pieChartCategoria.animateY(3000);
-//        pieChartCategoria.setData(data);
-//        pieChartCategoria.invalidate(); // refresh
-//
-//    }
-
 
 }

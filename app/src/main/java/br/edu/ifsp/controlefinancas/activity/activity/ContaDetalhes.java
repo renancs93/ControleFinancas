@@ -25,6 +25,9 @@ public class ContaDetalhes extends AppCompatActivity {
     private CategoriaDAO categoriaDAO;
     private TransacaoDAO transacaoDAO;
 
+    TextView txtSaldo;
+    View view;
+
     private RecyclerView recyclerView;
     private ContaDetalhesAdapter adapter;
 
@@ -32,11 +35,6 @@ public class ContaDetalhes extends AppCompatActivity {
     private List<TransacaoInfo> transacaos = new ArrayList<>();
 
     Conta conta;
-    Transacao transacao;
-
-    TextView txtSaldo;
-
-    View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

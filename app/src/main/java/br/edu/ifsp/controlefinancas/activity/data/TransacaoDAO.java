@@ -8,11 +8,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.anychart.chart.common.dataentry.DataEntry;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
+import br.edu.ifsp.controlefinancas.activity.activity.ContaInfo;
 import br.edu.ifsp.controlefinancas.activity.model.Conta;
 import br.edu.ifsp.controlefinancas.activity.model.Transacao;
 import br.edu.ifsp.controlefinancas.activity.model.TransacaoInfo;
@@ -61,43 +65,7 @@ public class TransacaoDAO {
         return ok;
     }
 
-//    public List<TransacaoInfo> buscaTodasTransacoes() {
-//
-//        database=dbHelper.getReadableDatabase();
-//        List<TransacaoInfo> transacaos = new ArrayList<>();
-//
-//        Cursor cursor;
-//
-//        String sql = "SELECT DISTINCT * FROM "+SQLiteHelper.DB_TABLE_TRANSACOES+" t"+
-//                " JOIN "+SQLiteHelper.DB_TABLE_CONTA+" c ON c."+SQLiteHelper.KEY_CONTA_ID+ " = t."+SQLiteHelper.KEY_TRANSACAO_ID_CONTA+
-//                " JOIN "+SQLiteHelper.DB_TABLE_CATEGORIAS+" ct ON ct."+SQLiteHelper.KEY_CATEGORIA_ID+" = t."+SQLiteHelper.KEY_TRANSACAO_CATEGORIA_ID+";"
-//               ;
-//
-//        cursor = database.rawQuery(sql, null);
-//        cursor.moveToFirst();
-//
-//        while (cursor.moveToNext())
-//        {
-//            //Transacao transacao = new Transacao();
-//            TransacaoInfo transacao = new TransacaoInfo();
-//
-//            transacao.setId_conta(cursor.getLong(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_ID_CONTA)));
-//            transacao.setId_transacao(cursor.getLong(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_ID)));
-//            transacao.setValor(cursor.getDouble(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_VALOR)));
-//            transacao.setDescricao(cursor.getString(3)/*cursor.getString(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_DESCRICAO))*/);
-//            transacao.setCategoria(cursor.getString(11)/*cursor.getString(cursor.getColumnIndex(SQLiteHelper.KEY_CATEGORIA_DESCRICAO))*/);
-//            transacao.setData(cursor.getInt(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_DATE)));
-//            transacao.setNatureza(cursor.getInt(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_NATUREZA)));
-//
-//            transacaos.add(transacao);
-//        }
-//        cursor.close();
-//
-//        database.close();
-//
-//        return transacaos;
-//
-//    }
+
 
     public List<TransacaoInfo> buscaTodasTransacoesPorConta(long idConta) {
 
@@ -117,8 +85,7 @@ public class TransacaoDAO {
         cursor = database.rawQuery(sql, filtros);
         cursor.moveToFirst();
 
-        while (cursor.moveToNext())
-        {
+        do{
             //Transacao transacao = new Transacao();
             TransacaoInfo transacao = new TransacaoInfo();
 
@@ -131,13 +98,53 @@ public class TransacaoDAO {
             transacao.setNatureza(cursor.getInt(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_NATUREZA)));
 
             transacaos.add(transacao);
-        }
-        cursor.close();
+        }while (cursor.moveToNext());
 
+        cursor.close();
         database.close();
 
         return transacaos;
 
+    }
+
+    public List<TransacaoInfo> buscaTransacaoPorCategoria(long idConta){
+
+        database=dbHelper.getReadableDatabase();
+        List<TransacaoInfo> transacaoInfos = new ArrayList<>();
+
+        Cursor cursor;
+
+        String sql = "select c.descricao, SUM(t.valor) as valor from transacao t" +
+                " join categoria c ON t.categoria_id = c.id" +
+                " group by c.descricao;";
+
+//        String sql = "SELECT c.""+ FROM "
+//                +SQLiteHelper.DB_TABLE_TRANSACOES+" t"
+//                +" JOIN "+SQLiteHelper.DB_TABLE_CATEGORIAS+" c"
+//                +" ON t."SQLiteHelper.KEY_TRANSACAO_CATEGORIA_ID+" = c."+SQLiteHelper.KEY_CATEGORIA_ID+
+//                +";";
+
+        if (idConta > 0){
+            //SQL com filtro de conta;
+        }
+
+
+        cursor = database.rawQuery(sql, null);
+        cursor.moveToFirst();
+
+        do {
+            TransacaoInfo transacaoInfo = new TransacaoInfo();
+            transacaoInfo.setDescricao(cursor.getString(cursor.getColumnIndex(SQLiteHelper.KEY_CATEGORIA_DESCRICAO)));
+            transacaoInfo.setValor(cursor.getDouble(cursor.getColumnIndex(SQLiteHelper.KEY_TRANSACAO_VALOR)));
+
+            transacaoInfos.add(transacaoInfo);
+
+        }while (cursor.moveToNext());
+
+        cursor.close();
+        database.close();
+
+        return transacaoInfos;
     }
 
     public void atualizaSaldo(long idConta, double valorTransacao, int natureza){
@@ -159,10 +166,10 @@ public class TransacaoDAO {
         conta.setSaldo(cursor.getDouble(cursor.getColumnIndex(SQLiteHelper.KEY_CONTA_SALDO)));
 
         if (natureza == SQLiteHelper.NATUREZA_RECEITA){
-            conta.setSaldo(conta.getSaldo() + valorTransacao);
+            conta.setSaldo(conta.getSaldo() + (valorTransacao));
         }
         else {
-            conta.setSaldo(conta.getSaldo() - valorTransacao);
+            conta.setSaldo(conta.getSaldo() - (valorTransacao));
         }
 
         ContentValues values = new ContentValues();

@@ -117,7 +117,7 @@ public class TransacaoActivity extends AppCompatActivity {
 
         categorias = categoriaDAO.buscaTodasCategorias();
 
-        ArrayAdapter<Categoria> arrayAdapter = new ArrayAdapter<Categoria>(this, android.R.layout.simple_spinner_item, categorias);
+        ArrayAdapter<Categoria> arrayAdapter = new ArrayAdapter<Categoria>(this, android.R.layout.simple_spinner_dropdown_item, categorias);
         spinnerCategoria.setAdapter(arrayAdapter);
 
 
@@ -141,7 +141,7 @@ public class TransacaoActivity extends AppCompatActivity {
 
         contas = contaDAO.buscaTodasContas();
 
-        ArrayAdapter<Conta> arrayAdapter = new ArrayAdapter<Conta>(this, android.R.layout.simple_spinner_item, contas);
+        ArrayAdapter<Conta> arrayAdapter = new ArrayAdapter<Conta>(this, android.R.layout.simple_spinner_dropdown_item, contas);
         spinnerConta.setAdapter(arrayAdapter);
 
         if (contas.size()>0 && contas != null){

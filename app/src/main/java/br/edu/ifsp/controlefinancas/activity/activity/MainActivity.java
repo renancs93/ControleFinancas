@@ -173,10 +173,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void abrirRelatorios() {
-
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -238,6 +234,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         intent.setAction(TAG_DESPESA);
         startActivityForResult(intent, 2);
     }
+
+    private void abrirRelatorios() {
+        Intent intent = new Intent(this, RelatoriosActivity.class);
+        startActivity(intent, null);
+    }
+
 
     private void updateUI(String conta){
 
