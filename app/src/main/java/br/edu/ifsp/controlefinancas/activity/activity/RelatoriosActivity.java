@@ -85,7 +85,8 @@ public class RelatoriosActivity extends AppCompatActivity implements View.OnClic
     private void refreshChart(){
 
         transacoes.clear();
-        data.clear();
+        data.removeAll(transacoes);// .clear();
+        anyChartView.invalidate();
 
     }
 
@@ -94,8 +95,8 @@ public class RelatoriosActivity extends AppCompatActivity implements View.OnClic
 
         switch (v.getId()){
             case R.id.btnBuscar_relatorios:
-                //buscar();
-                setGraficoCategoria(0);
+                buscar();
+                //setGraficoCategoria(0);
                 break;
         }
 
@@ -106,12 +107,12 @@ public class RelatoriosActivity extends AppCompatActivity implements View.OnClic
         refreshChart();
         pie = new AnyChart().pie();
 
-        APIlib.getInstance().setActiveAnyChartView(anyChartView);
-        pie.title(getString(R.string.txtRelatorios)+": "+getString(R.string.txtCategoria));
+        //APIlib.getInstance().setActiveAnyChartView(anyChartView);
+        pie.title(getString(R.string.txtRelatorios) + ": " + getString(R.string.txtCategoria));
 
         transacoes = transacaoDAO.buscaTransacaoPorCategoria(id);
 
-        for (TransacaoInfo t : transacoes){
+        for (TransacaoInfo t : transacoes) {
             data.add(new ValueDataEntry(t.getDescricao(), t.getValor()));
         }
         pie.data(data);
@@ -122,6 +123,8 @@ public class RelatoriosActivity extends AppCompatActivity implements View.OnClic
         pie.animation().enabled(true);
         pie.animation().duration(1500);
         anyChartView.setChart(pie);
+        anyChartView.animate();
+        //anyChartView.refreshDrawableState();
 
     }
 }
