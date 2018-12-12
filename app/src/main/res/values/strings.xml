@@ -14,6 +14,8 @@
     <string name="txtCancelar">Cancelar</string>
     <string name="txtCategoria">Categoria</string>
     <string name="txtRelatorios">Relatórios</string>
+    <string name="txtNatureza">Natureza</string>
+    <string name="txtBuscar">Buscar</string>
     <string name="txtCamposNaoPreenchidos">Campo(s) não preenchido(s)</string>
     <string name="txtOcorreuErro">Ocorreu um erro ao salvar</string>
     <string name="txtContaAdicionada">Conta adicionada</string>

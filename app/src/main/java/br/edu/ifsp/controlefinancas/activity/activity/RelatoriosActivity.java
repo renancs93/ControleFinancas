@@ -1,7 +1,11 @@
 package br.edu.ifsp.controlefinancas.activity.activity;
 
 import android.os.Bundle;
+import android.support.design.button.MaterialButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.anychart.APIlib;
 import com.anychart.AnyChart;
@@ -9,6 +13,7 @@ import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Pie;
+import com.anychart.core.Chart;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +23,11 @@ import br.edu.ifsp.controlefinancas.R;
 import br.edu.ifsp.controlefinancas.activity.data.TransacaoDAO;
 import br.edu.ifsp.controlefinancas.activity.model.TransacaoInfo;
 
-public class RelatoriosActivity extends AppCompatActivity {
+public class RelatoriosActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private MaterialButton btnBuscar;
+    private RadioGroup radioGroup;
+    private RadioButton rbCategoria, rbConta, rbNatureza;
 
     private List<DataEntry> data = new ArrayList<>();
     private List<TransacaoInfo> transacoes = new ArrayList<>();
@@ -32,37 +41,44 @@ public class RelatoriosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relatorios);
 
+        getSupportActionBar().setTitle(R.string.txtRelatorios);
+
         transacaoDAO = new TransacaoDAO(this);
+
+        btnBuscar = (MaterialButton) findViewById(R.id.btnBuscar_relatorios);
+        radioGroup = (RadioGroup) findViewById(R.id.rd_group_tiposCategorias);
+        rbCategoria = (RadioButton) findViewById(R.id.rb_categoria);
+        rbConta = (RadioButton) findViewById(R.id.rb_conta);
+        rbNatureza = (RadioButton) findViewById(R.id.rb_natureza);
+
+        //Graphic
         anyChartView = (AnyChartView) findViewById(R.id.piechart_relatorio_categoria);
 
-        pie = new AnyChart().pie();
+        //Clicks Listeners
+        btnBuscar.setOnClickListener(this);
 
-        setGraficoCategoria();
+        //setGraficoCategoria(0);
+
     }
 
-    private void setGraficoCategoria() {
+    public void buscar(){
 
-        APIlib.getInstance().setActiveAnyChartView(anyChartView);
-        pie.title(getString(R.string.txtRelatorios)+": "+getString(R.string.txtCategoria));
-
-        transacoes = transacaoDAO.buscaTransacaoPorCategoria(0);
-        data.clear();
-
-        for (TransacaoInfo t : transacoes){
-            data.add(new ValueDataEntry(t.getDescricao(), t.getValor()));
+        if (rbCategoria.isChecked()) {
+            setGraficoCategoria(0);
         }
-        pie.data(data);
 
-//        if (!data.isEmpty()){
-//            pie.data(data);
+//        switch (radioGroup.getCheckedRadioButtonId()){
+//            case R.id.rb_categoria:
+//                setGraficoCategoria(0);
+//                break;
+//            case R.id.rb_conta:
+//                //
+//                break;
+//            case R.id.rb_natureza:
+//                //
+//                break;
+//
 //        }
-
-        // enable aqua style
-        pie.fill("aquastyle");
-
-        pie.animation().enabled(true);
-        pie.animation().duration(1500);
-        anyChartView.setChart(pie);
 
     }
 
@@ -73,4 +89,39 @@ public class RelatoriosActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()){
+            case R.id.btnBuscar_relatorios:
+                //buscar();
+                setGraficoCategoria(0);
+                break;
+        }
+
+    }
+
+    private void setGraficoCategoria(long id) {
+
+        refreshChart();
+        pie = new AnyChart().pie();
+
+        APIlib.getInstance().setActiveAnyChartView(anyChartView);
+        pie.title(getString(R.string.txtRelatorios)+": "+getString(R.string.txtCategoria));
+
+        transacoes = transacaoDAO.buscaTransacaoPorCategoria(id);
+
+        for (TransacaoInfo t : transacoes){
+            data.add(new ValueDataEntry(t.getDescricao(), t.getValor()));
+        }
+        pie.data(data);
+
+        // enable aqua style
+        pie.fill("aquastyle");
+
+        pie.animation().enabled(true);
+        pie.animation().duration(1500);
+        anyChartView.setChart(pie);
+
+    }
 }

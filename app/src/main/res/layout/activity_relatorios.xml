@@ -12,6 +12,92 @@
         android:orientation="vertical"
         >
 
+        <android.support.design.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="100dp"
+            android:elevation="5dp"
+            android:layout_margin="2dp"
+            >
+
+            <!--layout container da busca-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <!--Layout interno das opções-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    >
+
+                    <!--Campos tipos de relatórios-->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        >
+                        <RadioGroup
+                            android:id="@+id/rd_group_tiposCategorias"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RadioButton
+                                android:id="@+id/rb_categoria"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/txtCategoria"
+                                android:checked="true"
+                                />
+
+                            <RadioButton
+                                android:id="@+id/rb_conta"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/txtConta"
+                                />
+
+                            <RadioButton
+                                android:id="@+id/rb_natureza"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/txtNatureza"
+                                />
+
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <!--Campos mais opções-->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:visibility="invisible"
+                        >
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <android.support.design.button.MaterialButton
+                    android:id="@+id/btnBuscar_relatorios"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txtBuscar"
+                    style="@style/Widget.MaterialComponents.Button"
+                    app:backgroundTint="@color/colorPrimary"
+                    android:textAppearance="@style/Widget.MaterialComponents.Button"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    />
+            </LinearLayout>
+
+        </android.support.design.card.MaterialCardView>
+
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
