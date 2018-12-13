@@ -22,8 +22,10 @@ public class ContaDAO {
         this.dbHelper= new SQLiteHelper (context);
     }
 
-    public List<Conta> buscaTodasContas()
+    public List<Conta> buscaTodasContas(long idConta)
     {
+        String id = String.valueOf(idConta);
+
         database=dbHelper.getReadableDatabase();
         List<Conta> contas = new ArrayList<>();
 
@@ -31,8 +33,14 @@ public class ContaDAO {
 
         String[] cols=new String[] {SQLiteHelper.KEY_CONTA_ID, SQLiteHelper.KEY_CONTA_DESCRICAO, SQLiteHelper.KEY_CONTA_SALDO};
 
-        cursor = database.query(SQLiteHelper.DB_TABLE_CONTA, cols, null , null,
-                null, null, SQLiteHelper.KEY_CONTA_DESCRICAO);
+        if (id.equals("0")) {
+            cursor = database.query(SQLiteHelper.DB_TABLE_CONTA, cols, null, null,
+                    null, null, SQLiteHelper.KEY_CONTA_DESCRICAO);
+        }
+        else{
+            cursor = database.query(SQLiteHelper.DB_TABLE_CONTA, cols, id, null,
+                    null, null, SQLiteHelper.KEY_CONTA_DESCRICAO);
+        }
 
         while (cursor.moveToNext())
         {
@@ -74,6 +82,7 @@ public class ContaDAO {
     public void apagaContato(Conta c)
     {
         database=dbHelper.getWritableDatabase();
+        database.execSQL("PRAGMA foreign_keys=ON;");
         database.delete(SQLiteHelper.DB_TABLE_CONTA, SQLiteHelper.KEY_CONTA_ID + "="+ c.getId(), null);
         Log.d(TAG, "Conta apagada");
         database.close();

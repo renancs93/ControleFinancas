@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         contas.clear();
 
         if (conta==null) {
-            contas.addAll(contaDAO.buscaTodasContas());
+            contas.addAll(contaDAO.buscaTodasContas(0));
         }
         else {
             //contas.addAll(contaDAO.buscaContato(nomeContato));

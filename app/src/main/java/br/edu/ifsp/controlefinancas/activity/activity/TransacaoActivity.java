@@ -139,7 +139,7 @@ public class TransacaoActivity extends AppCompatActivity {
 
     public void setCampoContas(){
 
-        contas = contaDAO.buscaTodasContas();
+        contas = contaDAO.buscaTodasContas(0);
 
         ArrayAdapter<Conta> arrayAdapter = new ArrayAdapter<Conta>(this, android.R.layout.simple_spinner_dropdown_item, contas);
         spinnerConta.setAdapter(arrayAdapter);
